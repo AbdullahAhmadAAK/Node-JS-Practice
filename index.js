@@ -35,7 +35,24 @@ app.post('/addJoke', (req, res) => {
     })
 })
 
+app.get('/getJokes', (req, res) => {
+    const query = "SELECT * FROM original_jokes";
+
+    pool.query(query, (error, results) => {
+        if(error){
+            console.error("Error: ", error);
+            res.status(500).json({message: "Failed to get jokes!"});
+        }
+        else{
+            const jokes_html = results.map(joke => `<p>${joke.content}</p>`).join('');
+            console.log("successfully got jokes!");
+            res.send(jokes_html);
+            // res.json({message: 'successfully got jokes'})
+        }
+    })
+})
+
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
-    console.log("Hello testing. your server is running on port number ${port}");
+    console.log(`Hello testing. your server is running on port number ${port}`);
 });
