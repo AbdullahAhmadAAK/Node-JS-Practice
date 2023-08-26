@@ -19,3 +19,7 @@ document.getElementById('getJokesBtn').addEventListener('click', () => {
             console.error("Error: ", error);
         })
 })
+
+document.getElementById('clearJokesListBtn').addEventListener('click', () => {
+    document.getElementById('waiting-area').innerHTML = "";
+})
